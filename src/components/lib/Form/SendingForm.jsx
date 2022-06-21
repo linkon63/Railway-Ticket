@@ -127,6 +127,7 @@ const SendingForm = ({ formStep, nextFormStep }) => {
                         setUserFormData(userTickerObj)
                         setDisplay("hideForm")
                         setMessage(true)
+                        localStorage.clear();
                         alert("Successfully Added data to the DB")
                     }
                     if (!success) {
