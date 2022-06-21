@@ -62,15 +62,23 @@ const AmountForm = ({ formStep, nextFormStep }) => {
                             type="number"
                             id="number"
                             className='w-100'
+
                             {...register("amount", {
                                 required: true,
+                                min: 0
                             })}
                         />
                         <br /> <br />
+                        <button onClick={() => onSubmit(SamountData)} className='btn btn-secondary btn-sm text-center' type="submit">Next</button>
                     </div>
                 </form>
                 <div className="text-end">
-                    <button onClick={() => onSubmit(SamountData)} className='btn btn-secondary btn-sm text-center' type="submit">Next</button>
+                    {
+                        // amountData.amount + 0 > 0 ?
+                        //     <p>Type big value</p>
+                        //     :
+                        //     <button onClick={() => onSubmit(SamountData)} className='btn btn-secondary btn-sm text-center' type="submit">Next</button>
+                    }
                 </div>
             </div>
         </div>
