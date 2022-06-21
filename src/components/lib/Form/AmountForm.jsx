@@ -15,18 +15,18 @@ const AmountForm = ({ formStep, nextFormStep }) => {
 
 
     const onChange = (values) => {
-        console.log(values)
+        // console.log(values)
         let number = parseFloat(values.amount);
 
         let number3 = number.toLocaleString('en-US', { maximumFractionDigits: 2 })
-        console.log(number3, typeof (number3))
+        // console.log(number3, typeof (number3))
         setSmountData(values)
         setAmountData({ amount: number3 })
     }
 
     const onSubmit = (values) => {
         try {
-            console.log("Value:", values)
+            // console.log("Value:", values)
 
             // default behaviour on a machine with a local that uses commas for numbers
             let number = parseFloat(values.amount);
@@ -36,7 +36,7 @@ const AmountForm = ({ formStep, nextFormStep }) => {
             let number2 = 1234.56789; // floating point example
             let number3 = number2.toLocaleString('en-US', { maximumFractionDigits: 2 }) // "1,234.57"
 
-            console.log("Parse Number", number3)
+            // console.log("Parse Number", number3)
 
             let amount = values.amount * (1.47)
             amount = parseInt(amount) + ""

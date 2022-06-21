@@ -15,7 +15,7 @@ const DetailsForm = ({ formStep, nextFormStep }) => {
 
     const onSubmit = (values) => {
         try {
-            console.log("Value:", values)
+            // console.log("Value:", values)
             const name = values.name
             let gender = (values.gender == null ? "no" : values.gender)
             const eName = CryptoJS.AES.encrypt(name, 'my-secret-key@123').toString()

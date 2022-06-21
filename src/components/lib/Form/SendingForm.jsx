@@ -11,7 +11,7 @@ const SendingForm = ({ formStep, nextFormStep }) => {
 
     useEffect(() => {
         const items = { ...localStorage }
-        console.log("local Storage data", items)
+        // console.log("local Storage data", items)
 
         const name = localStorage.getItem('name')
         const gender = localStorage.getItem('gender')
@@ -57,7 +57,7 @@ const SendingForm = ({ formStep, nextFormStep }) => {
             amount: dAmount || "",
             notes: dNotes || ""
         }
-        console.log("User Ticket info:", userTickerObj)
+        // console.log("User Ticket info:", userTickerObj)
         setUserFormData(userTickerObj)
     }, [])
 
@@ -108,7 +108,7 @@ const SendingForm = ({ formStep, nextFormStep }) => {
             id: Math.floor(Math.random() * 10000000000)
         }
 
-        console.log("User Ticket info:", userTickerObj)
+        // console.log("User Ticket info:", userTickerObj)
         setUserFormData(userTickerObj)
 
         try {
