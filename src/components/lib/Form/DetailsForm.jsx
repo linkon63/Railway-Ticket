@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { FormContext } from '../../../App';
 import '../Form/Styles/FormStyle.css'
@@ -8,6 +8,12 @@ const DetailsForm = ({ formStep, nextFormStep }) => {
 
     const [data, setData] = useContext(FormContext)
     const [nameError, setNameError] = useState("");
+
+    useEffect(() => {
+        setTimeout(console.log("Hello After 2s"), 2000)
+    }, [])
+
+
     const {
         handleSubmit,
         formState: { errors },

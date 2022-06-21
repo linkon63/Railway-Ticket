@@ -11,7 +11,9 @@ import TimeForm from '../Form/TimeForm';
 const HomeComponent = () => {
     const [data, setData] = useContext(FormContext)
     const [formStep, setFormStep] = useState(0)
-    const nextFormStep = () => setFormStep((currentStep) => currentStep + 1)
+    const nextFormStep = () => {
+        setFormStep((currentStep) => currentStep + 1)
+    }
     const prevFormStep = () => {
         setFormStep((currentStep) => currentStep - 1)
     }
@@ -37,14 +39,9 @@ const HomeComponent = () => {
                 {formStep >= 5 && (
                     <SendingForm formStep={formStep} nextFormStep={nextFormStep} />
                 )}
-                {/* {formStep >= 1 && (
-                    <BillingInfo formStep={formStep} nextFormStep={nextFormStep} />
+                {formStep >= 6 || formStep >= 7 && (
+                    <SendingForm formStep={formStep} nextFormStep={nextFormStep} />
                 )}
-                {formStep >= 2 && (
-                    <ConfirmPurchase formStep={formStep} nextFormStep={nextFormStep} />
-                )}
-
-                {formStep > 2 && <FormCompleted />} */}
             </FormCard>
         </div>
     );

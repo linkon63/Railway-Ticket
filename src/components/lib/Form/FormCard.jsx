@@ -4,7 +4,7 @@ const FormCard = ({ children, currentStep, prevFormStep }) => {
     return (
         <div className='pt-5'>
             <div className="ms-5">
-                {currentStep < 6 && (
+                {currentStep <= 7 && (
                     <>
                         {currentStep > 0 && (
                             <button
