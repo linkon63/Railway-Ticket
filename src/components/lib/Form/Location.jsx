@@ -15,7 +15,7 @@ const Location = ({ formStep, nextFormStep }) => {
 
     const onSubmit = (values) => {
         try {
-            console.log("Value:", values)
+            // console.log("Value:", values)
             const form = values.fromLocation
             const to = values.toLocation
             const eFrom = CryptoJS.AES.encrypt(form, 'my-secret-key@123').toString()

@@ -15,7 +15,7 @@ const TimeForm = ({ formStep, nextFormStep }) => {
 
     const onSubmit = (values) => {
         try {
-            console.log("Value:", values)
+            // console.log("Value:", values)
             const date = values.date
             const time = values.time
             const eDate = CryptoJS.AES.encrypt(date, 'my-secret-key@123').toString()
