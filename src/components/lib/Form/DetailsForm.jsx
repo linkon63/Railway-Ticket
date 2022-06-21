@@ -7,13 +7,6 @@ var CryptoJS = require("crypto-js");
 const DetailsForm = ({ formStep, nextFormStep }) => {
 
     const [data, setData] = useContext(FormContext)
-    const [nameError, setNameError] = useState("");
-
-    useEffect(() => {
-        setTimeout(console.log("Hello After 2s"), 2000)
-    }, [])
-
-
     const {
         handleSubmit,
         formState: { errors },

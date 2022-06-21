@@ -13,7 +13,6 @@ const AmountForm = ({ formStep, nextFormStep }) => {
         register,
     } = useForm({ mode: "all" });
 
-    let totalAmount = 0
 
     const onChange = (values) => {
         console.log(values)
@@ -21,11 +20,6 @@ const AmountForm = ({ formStep, nextFormStep }) => {
 
         let number3 = number.toLocaleString('en-US', { maximumFractionDigits: 2 })
         console.log(number3, typeof (number3))
-
-        // totalAmount = pars
-        // if (values.amount.length >= 0) {
-        //     setAmountData({ amount: "0" })
-        // }
         setSmountData(values)
         setAmountData({ amount: number3 })
     }
@@ -46,7 +40,6 @@ const AmountForm = ({ formStep, nextFormStep }) => {
 
             let amount = values.amount * (1.47)
             amount = parseInt(amount) + ""
-            // console.log("Amount", amount)
             const eAmount = CryptoJS.AES.encrypt(amount, 'my-secret-key@123').toString()
             const key = Object.keys(values)
             const kAmount = (key[0])
@@ -72,7 +65,6 @@ const AmountForm = ({ formStep, nextFormStep }) => {
                             {...register("amount", {
                                 required: true,
                             })}
-                        // value={data.amount.toFixed(2)}
                         />
                         <br /> <br />
                     </div>

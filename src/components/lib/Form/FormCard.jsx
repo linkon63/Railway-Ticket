@@ -1,5 +1,4 @@
 import React from 'react';
-// import styles from './Styles/Style.module.scss'
 const FormCard = ({ children, currentStep, prevFormStep }) => {
     return (
         <div className='pt-5'>
@@ -22,22 +21,6 @@ const FormCard = ({ children, currentStep, prevFormStep }) => {
                 </span>
             </div>
             {children}
-            {
-                // currentStep < 6 && (
-                //     <>
-                //         {currentStep > 0 && (
-                //             <button
-                //                 onClick={prevFormStep}
-                //                 type="button"
-                //             >
-                //                 back
-                //             </button>
-                //         )}
-                //     </>
-                // )
-
-            }
-
         </div>
     );
 };
