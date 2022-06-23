@@ -49,7 +49,7 @@ const HomeComponent = () => {
                 loader ?
                     <div className='d-flex justify-content-center mt-5 pt-5'>
                         {
-                            formStep >= 0 &&
+                            formStep == 1 &&
                             <div className="loader"></div>
                         }
                     </div>
@@ -65,20 +65,44 @@ const HomeComponent = () => {
             }
 
             {
-                formStep >= 2 &&
-                <div>
-                    <TimeForm nextFormStep={nextFormStep} prevFormStep={prevFormStep} formStep={formStep} />
-                </div>
+                loader ?
+                    <div className='d-flex justify-content-center mt-5 pt-5'>
+                        {
+                            formStep == 2 &&
+                            <div className="loader"></div>
+                        }
+                    </div>
+                    :
+                    formStep >= 2 &&
+                    <div>
+                        <TimeForm nextFormStep={nextFormStep} prevFormStep={prevFormStep} formStep={formStep} />
+                    </div>
             }
             {
-                formStep >= 3 &&
-                <div>
-                    <AmountForm nextFormStep={nextFormStep} prevFormStep={prevFormStep} formStep={formStep} />
-                </div>
+                loader ?
+                    <div className='d-flex justify-content-center '>
+                        {
+                            formStep == 3 &&
+                            <div className="loader"></div>
+                        }
+                    </div>
+                    :
+                    formStep >= 3 &&
+                    <div>
+                        <AmountForm nextFormStep={nextFormStep} prevFormStep={prevFormStep} formStep={formStep} />
+                    </div>
             }
             {
-                formStep >= 4 &&
-                <NotesFrom nextFormStep={nextFormStep} prevFormStep={prevFormStep} formStep={formStep} />
+                loader ?
+                    <div className='d-flex justify-content-center'>
+                        {
+                            formStep == 4 &&
+                            <div className="loader"></div>
+                        }
+                    </div>
+                    :
+                    formStep >= 4 &&
+                    <NotesFrom nextFormStep={nextFormStep} prevFormStep={prevFormStep} formStep={formStep} />
             }
             {
                 formStep >= 5 &&
