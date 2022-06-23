@@ -4,18 +4,32 @@ import { FormContext } from '../../../App';
 import '../Form/Styles/FormStyle.css'
 var CryptoJS = require("crypto-js");
 
-const DetailsForm = ({ formStep, nextFormStep }) => {
+const DetailsForm = ({ nextFormStep, formStep }) => {
 
-    const [data, setData] = useContext(FormContext)
-    const {
-        handleSubmit,
-        formState: { errors },
-        register,
-    } = useForm({ mode: "all" });
+    const { handleSubmit, reset, formState: { errors }, register, } = useForm({});
+    const [formData, setFormData] = useState({})
+    useEffect(() => {
+        const localStorageData = { ...localStorage }
+        const { name, gender } = localStorageData
+
+        const dNameByte = name ? CryptoJS.AES.decrypt(name, 'my-secret-key@123') : ""
+        const dName = (dNameByte.toString(CryptoJS.enc.Utf8))
+
+        const dGenderByte = gender ? CryptoJS.AES.decrypt(gender, 'my-secret-key@123') : ""
+        const dGender = (dGenderByte.toString(CryptoJS.enc.Utf8))
+
+        setFormData({ name: dName, gender: dGender })
+        console.log("Step-1")
+
+    }, [formStep])
+
+    useEffect(() => {
+        reset(formData)
+    }, [formData])
+
 
     const onSubmit = (values) => {
         try {
-            // console.log("Value:", values)
             const name = values.name
             let gender = (values.gender == null ? "no" : values.gender)
             const eName = CryptoJS.AES.encrypt(name, 'my-secret-key@123').toString()
@@ -23,72 +37,172 @@ const DetailsForm = ({ formStep, nextFormStep }) => {
             const key = Object.keys(values)
             const kName = (key[0])
             const kGender = (key[1])
-            setData({ ...data, values })
             localStorage.setItem(`${kName}`, `${eName}`)
             localStorage.setItem(`${kGender}`, `${eGender}`)
+            console.log(values)
             nextFormStep()
         } catch (error) {
             console.log("Step 1 Form Error", error)
         }
     };
-
     return (
-        <div className={formStep === 0 ? "showForm" : "hideForm"}>
-            <form onSubmit={handleSubmit(onSubmit)}>
-                <div className='mt-5 p-5'>
-                    <label htmlFor="name">*Name</label>
-                    <br />
-                    <input
-                        className='w-100'
-                        type="text"
-                        id="name"
-                        {...register("name", {
-                            required: true,
-                        })}
-                    />
-                    {errors.name && (
-                        <p>
-                            Name is required**
-                        </p>
-                    )}
-                    <br />
-                    <br />
-                    <span>Gender:</span> <br />
-                    <div className='ms-5'>
-                        <label htmlFor="field-gender">
+        <div className=''>
+            <div className={formStep === 0 ? "showForm" : "hideForm"}>
+                <div className="p-5">
+                    <h6>Step 1 : Details</h6>
+                    <form onSubmit={handleSubmit(onSubmit)}>
+                        <div className=''>
+                            <label htmlFor="name">*Name</label>
+                            <br />
                             <input
-                                {...register("gender")}
-                                type="radio"
-                                value="male"
-                                id="field-gender"
+                                className='w-100'
+                                type="text"
+                                id="name"
+                                {...register("name", {
+                                    required: true,
+                                })}
                             />
-                            Male
-                        </label>
-                    </div>
-                    <div className='ms-5'>
-                        <label htmlFor="field-gender">
-                            <input
-                                {...register("gender")}
-                                type="radio"
-                                value="female"
-                                id="field-gender"
-                            />
-                            Female
-                        </label>
-                    </div>
+                            {errors.name && (
+                                <p>
+                                    Name is required**
+                                </p>
+                            )}
+                            <br />
+                            <br />
+                            <span>Gender:</span> <br />
+                            <div className='ms-5'>
+                                <label htmlFor="field-gender">
+                                    <input
+                                        {...register("gender")}
+                                        type="radio"
+                                        value="male"
+                                        id="field-gender"
+                                    />
+                                    Male
+                                </label>
+                            </div>
+                            <div className='ms-5'>
+                                <label htmlFor="field-gender">
+                                    <input
+                                        {...register("gender")}
+                                        type="radio"
+                                        value="female"
+                                        id="field-gender"
+                                    />
+                                    Female
+                                </label>
+                            </div>
 
-                    <div className='text-end'>
-                        {errors.name && (
-                            <p className='text-danger'>
-                                Name is required
-                            </p>
-                        )}
-                        <button className='btn btn-secondary btn-sm text-center' type="submit">Next</button>
-                    </div>
+                            <div className='text-end'>
+                                {errors.name && (
+                                    <p className='text-danger'>
+                                        Name is required
+                                    </p>
+                                )}
+                                <button className='btn btn-secondary btn-sm text-center' type="submit">Next</button>
+                            </div>
+                        </div>
+                    </form>
                 </div>
-            </form>
+            </div>
         </div>
     );
 };
 
 export default DetailsForm;
+
+// import React, { useContext, useEffect, useState } from 'react';
+// import { useForm } from 'react-hook-form';
+// import { FormContext } from '../../../App';
+// import '../Form/Styles/FormStyle.css'
+// var CryptoJS = require("crypto-js");
+
+// const DetailsForm = ({ formStep, nextFormStep }) => {
+
+//     const [data, setData] = useContext(FormContext)
+//     const {
+//         handleSubmit,
+//         formState: { errors },
+//         register,
+//     } = useForm({ mode: "all" });
+
+//     const onSubmit = (values) => {
+//         try {
+//             const name = values.name
+//             let gender = (values.gender == null ? "no" : values.gender)
+//             const eName = CryptoJS.AES.encrypt(name, 'my-secret-key@123').toString()
+//             const eGender = CryptoJS.AES.encrypt(gender, 'my-secret-key@123').toString()
+//             const key = Object.keys(values)
+//             const kName = (key[0])
+//             const kGender = (key[1])
+//             setData({ ...data, values })
+//             localStorage.setItem(`${kName}`, `${eName}`)
+//             localStorage.setItem(`${kGender}`, `${eGender}`)
+//             nextFormStep()
+//         } catch (error) {
+//             console.log("Step 1 Form Error", error)
+//         }
+//     };
+
+
+
+//     return (
+//         <div className={formStep === 0 ? "showForm" : "hideForm"}>
+//             <form onSubmit={handleSubmit(onSubmit)}>
+//                 <div className='mt-5 p-5'>
+//                     <label htmlFor="name">*Name</label>
+//                     <br />
+//                     <input
+//                         className='w-100'
+//                         type="text"
+//                         id="name"
+//                         {...register("name", {
+//                             required: true,
+//                         })}
+//                     />
+//                     {errors.name && (
+//                         <p>
+//                             Name is required**
+//                         </p>
+//                     )}
+//                     <br />
+//                     <br />
+//                     <span>Gender:</span> <br />
+//                     <div className='ms-5'>
+//                         <label htmlFor="field-gender">
+//                             <input
+//                                 {...register("gender")}
+//                                 type="radio"
+//                                 value="male"
+//                                 id="field-gender"
+//                             />
+//                             Male
+//                         </label>
+//                     </div>
+//                     <div className='ms-5'>
+//                         <label htmlFor="field-gender">
+//                             <input
+//                                 {...register("gender")}
+//                                 type="radio"
+//                                 value="female"
+//                                 id="field-gender"
+//                             />
+//                             Female
+//                         </label>
+//                     </div>
+
+//                     <div className='text-end'>
+//                         {errors.name && (
+//                             <p className='text-danger'>
+//                                 Name is required
+//                             </p>
+//                         )}
+//                         <button className='btn btn-secondary btn-sm text-center' type="submit">Next</button>
+//                     </div>
+//                 </div>
+//             </form>
+//         </div>
+//     );
+// };
+
+// export default DetailsForm;
