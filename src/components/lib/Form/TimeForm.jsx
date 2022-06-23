@@ -11,10 +11,26 @@ const TimeForm = ({ nextFormStep, prevFormStep, formStep }) => {
         const localStorageData = { ...localStorage }
         const { date, time } = localStorageData
 
-        const dDateByte = date ? CryptoJS.AES.decrypt(date, 'my-secret-key@123') : ""
+        // if there is not date 
+        const localDate = new Date()
+        const lYear = localDate.getFullYear()
+        const lMonth = localDate.getMonth() + 1
+        const lDay = localDate.getDate()
+
+        const lDate = `${lYear}-${lMonth}-${lDay}`
+
+        console.log("Local Date:", lDate, typeof (lDate))
+
+        const lHour = localDate.getHours()
+        const lMinute = localDate.getMinutes()
+
+        const lTime = `${lHour}:${lMinute}`
+        console.log("Time:", lTime)
+
+        const dDateByte = date ? CryptoJS.AES.decrypt(date, 'my-secret-key@123') : lDate
         const dDate = (dDateByte.toString(CryptoJS.enc.Utf8))
 
-        const dTimeByte = time ? CryptoJS.AES.decrypt(time, 'my-secret-key@123') : ""
+        const dTimeByte = time ? CryptoJS.AES.decrypt(time, 'my-secret-key@123') : lTime
         const dTime = (dTimeByte.toString(CryptoJS.enc.Utf8))
 
         setFormData({ date: dDate, time: dTime })

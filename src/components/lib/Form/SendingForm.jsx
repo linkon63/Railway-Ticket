@@ -128,7 +128,8 @@ const SendingForm = ({ nextFormStep, prevFormStep, formStep }) => {
             id: Math.floor(Math.random() * 10000000000)
         }
 
-        // console.log("User Ticket info:", userTickerObj)
+        console.log("User Ticket info:", userTickerObj)
+        console.log("Sending Data to the db")
         setUserFormData(userTickerObj)
 
         try {
