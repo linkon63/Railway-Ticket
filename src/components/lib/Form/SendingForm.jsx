@@ -50,7 +50,8 @@ const SendingForm = ({ nextFormStep, prevFormStep, formStep }) => {
 
 
         let number = parseFloat(dFloatAmount);
-        let commaSeparatorNumber = number.toLocaleString('en-US', { maximumFractionDigits: 2 })
+        let commaSeparatorNumber = number.toLocaleString()
+        // let commaSeparatorNumber = number.toLocaleString('en-US', { maximumFractionDigits: 2 })
 
 
 
@@ -144,7 +145,6 @@ const SendingForm = ({ nextFormStep, prevFormStep, formStep }) => {
                         setUserFormData(userTickerObj)
                         localStorage.clear()
                         setDisplay("hideForm")
-                        nextFormStep()
                         setMessage(true)
                         alert("Successfully Added data to the DB")
                     }
@@ -186,7 +186,7 @@ const SendingForm = ({ nextFormStep, prevFormStep, formStep }) => {
 
                 <div className="d-flex justify-content-between ps-5 pe-5">
                     <button className='btn btn-secondary btn-sm text-center' onClick={prevFormStep}>Previous</button>
-                    <button onClick={onSubmit} className='btn btn-secondary btn-sm text-center' type="submit">Next</button>
+                    <button onClick={onSubmit} className='btn btn-secondary btn-sm text-center' type="submit">Submit</button>
                 </div>
 
             </div>

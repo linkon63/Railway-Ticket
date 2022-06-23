@@ -11,16 +11,24 @@ import Location from '../Form/Location';
 import NotesFrom from '../Form/NotesFrom';
 import SendingForm from '../Form/SendingForm';
 import TimeForm from '../Form/TimeForm';
-
+import '../Home/HomeComponent.css'
 var CryptoJS = require("crypto-js");
 
 const HomeComponent = () => {
     const [data, setData] = useContext(FormContext)
-    // const [formData, setFormData] = useState({})
+    const [loader, setLoader] = useState(false)
     const [formStep, setFormStep] = useState(0)
     const { handleSubmit, reset, formState: { errors }, register, } = useForm({ notes: "hello" });
     const nextFormStep = () => {
-        // console.l0g(formStep)
+        if (formStep >= 4) {
+            setLoader(false)
+        } else {
+            setLoader(true)
+        }
+        setTimeout(() => {
+            console.log('Hello, World! Stop Loader')
+            setLoader(false)
+        }, 300)
         setFormStep((currentStep) => currentStep + 1)
     }
     const prevFormStep = () => {
@@ -36,12 +44,26 @@ const HomeComponent = () => {
                     <DetailsForm nextFormStep={nextFormStep} formStep={formStep} />
                 </div>
             }
+
             {
-                formStep >= 1 &&
-                <div>
-                    <Location nextFormStep={nextFormStep} prevFormStep={prevFormStep} formStep={formStep} />
-                </div>
+                loader ?
+                    <div className='d-flex justify-content-center mt-5 pt-5'>
+                        {
+                            formStep >= 0 &&
+                            <div className="loader"></div>
+                        }
+                    </div>
+                    :
+                    <div>
+                        {
+                            formStep >= 1 &&
+                            <div>
+                                <Location nextFormStep={nextFormStep} prevFormStep={prevFormStep} formStep={formStep} />
+                            </div>
+                        }
+                    </div>
             }
+
             {
                 formStep >= 2 &&
                 <div>
@@ -95,7 +117,7 @@ const HomeComponent = () => {
                     <SendingForm formStep={formStep} nextFormStep={nextFormStep} />
                 )}
             </FormCard> */}
-        </div>
+        </div >
     );
 };
 
