@@ -1,9 +1,14 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Header from '../shared/Header';
 import LeftSide from '../shared/LeftSide';
 import RightSide from '../shared/RightSide';
 
 const Layout = ({ props }) => {
+
+    useEffect(() => {
+        // console.log("Layout")
+    }, [])
+
     return (
         <div className='row m-0' style={{ height: "100vh" }}>
             <div className="col-sm-12 col-md-12 border border-2 border-dark" style={{ backgroundColor: "#deeaf6", height: "10vh", position: "fixed" }}>
