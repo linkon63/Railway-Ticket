@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
-
+import '../Form/Styles/FormStyle.css'
 var CryptoJS = require("crypto-js");
 
 const HomeComponent = () => {
@@ -57,7 +57,7 @@ const HomeComponent = () => {
 
     return (
         <div className='p-5'>
-            <p>Step 1 Home Details</p>
+            <p>Step 1 : Details</p>
 
             <form onSubmit={handleSubmit(onSubmit)}>
                 <div className=''>
