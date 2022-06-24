@@ -7,16 +7,31 @@ const Location = ({ nextFormStep, prevFormStep, formStep }) => {
     const [formData, setFormData] = useState({})
     useEffect(() => {
         const localStorageData = { ...localStorage }
-        const { fromLocation, toLocation } = localStorageData
+        const Enc = localStorageData.Enc
+        if (Enc) {
+            console.log("Enc-2", Enc)
+            var bytes = CryptoJS.AES.decrypt(Enc, 'secret key 123');
+            var decryptedData = JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
+            console.log("decryptedData-2", decryptedData)
+            const { fromLocation, toLocation } = decryptedData
+            if (fromLocation || toLocation) {
+                
+            }
+        }
+        // console.log("Enc-2", Enc)
+        // Decrypt
+        // var bytes = CryptoJS.AES.decrypt(Enc, 'secret key 123');
+        // var decryptedData = JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
+        // console.log("decryptedData-2", decryptedData)
 
-        const dFromLocationByte = fromLocation ? CryptoJS.AES.decrypt(fromLocation, 'my-secret-key@123') : ""
-        const dFromLocation = (dFromLocationByte.toString(CryptoJS.enc.Utf8))
+        // const { fromLocation, toLocation } = decryptedData
+        // const dFromLocation = fromLocation ? fromLocation : ""
+        // const dToLocation = toLocation ? toLocation : ""
 
-        const dToLocationByte = toLocation ? CryptoJS.AES.decrypt(toLocation, 'my-secret-key@123') : ""
-        const dToLocation = (dToLocationByte.toString(CryptoJS.enc.Utf8))
+        // console.log("Set get data:", dFromLocation, dToLocation)
 
-        setFormData({ fromLocation: dFromLocation, toLocation: dToLocation })
-        console.log("Step-2")
+        // setFormData({ fromLocation: dFromLocation, toLocation: dToLocation })
+        // console.log("Step-2")
 
     }, [formStep])
 
@@ -27,17 +42,51 @@ const Location = ({ nextFormStep, prevFormStep, formStep }) => {
 
     const onSubmit = (values) => {
         try {
+            const localStorageData = { ...localStorage }
+            const Enc = localStorageData.Enc
+            // console.log("Enc-2", Enc)
+            // Decrypt
+            var bytes = CryptoJS.AES.decrypt(Enc, 'secret key 123');
+            var decryptedData = JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
+
+            // console.log("From Data", decryptedData)
+
             const form = values.fromLocation
             const to = values.toLocation
-            const eFrom = CryptoJS.AES.encrypt(form, 'my-secret-key@123').toString()
-            const eTo = CryptoJS.AES.encrypt(to, 'my-secret-key@123').toString()
-            const key = Object.keys(values)
-            const kForm = (key[0])
-            const kTo = (key[1])
-            localStorage.setItem(`${kForm}`, `${eFrom}`)
-            localStorage.setItem(`${kTo}`, `${eTo}`)
-            console.log("Value:", values)
+
+            const locObj = { fromLocation: form, toLocation: to }
+
+
+            const data = { ...decryptedData, ...locObj }
+            console.log("data:", data)
+
+            var location = CryptoJS.AES.encrypt(JSON.stringify(data), 'secret key 123').toString();
+            console.log("before", data)
+            console.log("Enc", location)
+            localStorage.setItem("Enc", `${location}`)
+
+            // Decrypt
+            // var bytes = CryptoJS.AES.decrypt(location, 'secret key 123');
+            // var decryptedData = JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
+            // console.log("decryptedData", decryptedData)
+
+
+            // const l = { ...localStorage }
+            // const c = l.Enc
+            // // Decrypt
+            // var bytes = CryptoJS.AES.decrypt(c, 'secret key 123');
+            // var decryptedData = JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
+            // console.log("dc", decryptedData)
+
             nextFormStep();
+
+
+            // const key = Object.keys(values)
+            // const kForm = (key[0])
+            // const kTo = (key[1])
+            // localStorage.setItem(`${kForm}`, `${eFrom}`)
+            // localStorage.setItem(`${kTo}`, `${eTo}`)
+            console.log("Value:", data)
 
         } catch (error) {
             console.log("step 2", error)

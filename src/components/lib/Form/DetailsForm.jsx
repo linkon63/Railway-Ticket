@@ -10,16 +10,20 @@ const DetailsForm = ({ nextFormStep, formStep }) => {
     const [formData, setFormData] = useState({})
     useEffect(() => {
         const localStorageData = { ...localStorage }
-        const { name, gender } = localStorageData
+        console.log("Local Storage:", localStorageData)
 
-        const dNameByte = name ? CryptoJS.AES.decrypt(name, 'my-secret-key@123') : ""
-        const dName = (dNameByte.toString(CryptoJS.enc.Utf8))
-
-        const dGenderByte = gender ? CryptoJS.AES.decrypt(gender, 'my-secret-key@123') : ""
-        const dGender = (dGenderByte.toString(CryptoJS.enc.Utf8))
-
-        setFormData({ name: dName, gender: dGender })
-        console.log("Step-1")
+        if (localStorageData.Enc) {
+            const Enc = localStorageData.Enc
+            console.log("Enc-2", Enc)
+            // Decrypt
+            var bytes = Enc ? CryptoJS.AES.decrypt(Enc, 'secret key 123') : {};
+            var decryptedData = bytes ? JSON.parse(bytes.toString(CryptoJS.enc.Utf8)) : "";
+            const { name, gender } = decryptedData
+            const dName = name ? name : ""
+            const dGender = gender ? gender : ""
+            setFormData({ name: dName, gender: dGender })
+            console.log("Step-1")
+        }
 
     }, [formStep])
 
@@ -32,15 +36,32 @@ const DetailsForm = ({ nextFormStep, formStep }) => {
         try {
             const name = values.name
             let gender = (values.gender == null ? "no" : values.gender)
-            const eName = CryptoJS.AES.encrypt(name, 'my-secret-key@123').toString()
-            const eGender = CryptoJS.AES.encrypt(gender, 'my-secret-key@123').toString()
-            const key = Object.keys(values)
-            const kName = (key[0])
-            const kGender = (key[1])
-            localStorage.setItem(`${kName}`, `${eName}`)
-            localStorage.setItem(`${kGender}`, `${eGender}`)
-            console.log(values)
+
+            const detailsObj = { name: name, gender: gender }
+            console.log("Details Obj", detailsObj)
+
+            // Encrypt
+            var detail = CryptoJS.AES.encrypt(JSON.stringify(detailsObj), 'secret key 123').toString();
+            console.log("Enc", detail)
+            localStorage.setItem("Enc", `${detail}`)
             nextFormStep()
+
+
+            // Decrypt
+            // var bytes = CryptoJS.AES.decrypt(ciphertext, 'secret key 123');
+            // var decryptedData = JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
+            // console.log("decryptedData", decryptedData)
+
+
+            // const eName = CryptoJS.AES.encrypt(name, 'my-secret-key@123').toString()
+            // const eGender = CryptoJS.AES.encrypt(gender, 'my-secret-key@123').toString()
+            // const key = Object.keys(values)
+            // const kName = (key[0])
+            // const kGender = (key[1])
+            // localStorage.setItem(`${kName}`, `${eName}`)
+            // localStorage.setItem(`${kGender}`, `${eGender}`)
+            // console.log(values)
+
         } catch (error) {
             console.log("Step 1 Form Error", error)
         }

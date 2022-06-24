@@ -18,7 +18,7 @@ const HomeComponent = () => {
     const [data, setData] = useContext(FormContext)
     const [loader, setLoader] = useState(false)
     const [formStep, setFormStep] = useState(0)
-    const { handleSubmit, reset, formState: { errors }, register, } = useForm({ notes: "hello" });
+    const { handleSubmit, reset, formState: { errors }, register, } = useForm({ notes: "" });
     const nextFormStep = () => {
         if (formStep >= 4) {
             setLoader(false)
