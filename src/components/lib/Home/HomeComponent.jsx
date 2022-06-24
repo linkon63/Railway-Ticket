@@ -19,7 +19,7 @@ const HomeComponent = () => {
             var decryptedData = JSON.parse(bytes.toString(CryptoJS.enc.Utf8))[0];
             // console.log("Enc", Enc)
             const { name, gender } = decryptedData
-            console.log("Data-1:", decryptedData)
+            // console.log("Data-1:", decryptedData)
             setRadioData(gender ? gender : '')
             setFormValue({ ...decryptedData })
             setValue('name', name ? name : "", 'gender', gender)

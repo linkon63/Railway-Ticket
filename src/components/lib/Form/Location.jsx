@@ -21,7 +21,7 @@ const Location = () => {
             // Decrypt
             var bytes = CryptoJS.AES.decrypt(Enc, 'secret key 123');
             var decryptedData = JSON.parse(bytes.toString(CryptoJS.enc.Utf8))[0];
-            console.log("Use Effect DetailObj 2", decryptedData)
+            // console.log("Use Effect DetailObj 2", decryptedData)
             const { fromLocation, toLocation } = decryptedData
             setFLocation(fromLocation ? fromLocation : "")
             setTLocation(toLocation ? toLocation : "")
@@ -31,7 +31,7 @@ const Location = () => {
     }, [])
 
     const onSubmit = (values) => {
-        console.log(values)
+        // console.log(values)
         // console.log(fLocation, tLocation)
         const localStorageData = localStorage.getItem('Enc')
         const Enc = localStorageData
@@ -40,12 +40,12 @@ const Location = () => {
             let decryptedData = JSON.parse(bytes.toString(CryptoJS.enc.Utf8))[0];
 
             const locationData = [{ ...decryptedData, toLocation: tLocation ? tLocation : values.toLocation, fromLocation: fLocation ? fLocation : values.fromLocation }]
-            console.log("location Data", locationData)
+            // console.log("location Data", locationData)
             var location = CryptoJS.AES.encrypt(JSON.stringify(locationData), 'secret key 123').toString();
             localStorage.setItem("Enc", `${location}`)
             next()
         } else {
-            console.log("No ENC in Location")
+            // console.log("No ENC in Location")
             var locationData = CryptoJS.AES.encrypt(JSON.stringify([values]), 'secret key 123').toString();
             localStorage.setItem("Enc", `${locationData}`)
             next()

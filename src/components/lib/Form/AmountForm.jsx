@@ -18,7 +18,7 @@ const AmountForm = () => {
               // Decrypt
               var bytes = CryptoJS.AES.decrypt(Enc, 'secret key 123');
               var decryptedData = JSON.parse(bytes.toString(CryptoJS.enc.Utf8))[0];
-              console.log(decryptedData)
+            //   console.log(decryptedData)
               if (decryptedData.amount) {
                 reset({amount:decryptedData.amount})
               }

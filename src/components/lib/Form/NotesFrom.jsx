@@ -59,7 +59,8 @@ t҉̠̩̰͔͇͔͓̤͕̪̱̗̖̳̭͒̊̓̆̂͌̐̿̎̈́͂̓̇̆e҉͂̌̿͂͐̈̽̋
               // Decrypt
               var bytes = CryptoJS.AES.decrypt(Enc, 'secret key 123');
               var decryptedData = JSON.parse(bytes.toString(CryptoJS.enc.Utf8))[0];
-              console.log(decryptedData)
+            //   console.log(decryptedData)
+
               if (decryptedData.notes) {
                 reset({notes:decryptedData.notes})
               }
@@ -69,7 +70,7 @@ t҉̠̩̰͔͇͔͓̤͕̪̱̗̖̳̭͒̊̓̆̂͌̐̿̎̈́͂̓̇̆e҉͂̌̿͂͐̈̽̋
 
 
     const onSubmit = (values) => {
-        console.log("value",values)
+        // console.log("value",values)
         const localStorageData = localStorage.getItem('Enc')
         const Enc = localStorageData
         if (Enc) {

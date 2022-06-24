@@ -20,7 +20,7 @@ const SendingForm = () => {
             // Decrypt
             var bytes = CryptoJS.AES.decrypt(Enc, 'secret key 123');
             var decryptedData = JSON.parse(bytes.toString(CryptoJS.enc.Utf8))[0];
-            console.log(decryptedData)
+            // console.log(decryptedData)
 
             let number = parseFloat(decryptedData.amount);
             number = number * (1.47)
